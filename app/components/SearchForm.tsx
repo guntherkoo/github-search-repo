@@ -22,7 +22,7 @@ const SearchForm = ({ handleSearch, defaultValue }: SearchFormProps) => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
-          className="text-neutral-800 font-light h-10 rounded-md px-2 min-w-72 text-xl"
+          className="text-neutral-800 font-light h-10 rounded px-3 min-w-72 text-xl"
         />
         <button
           type="submit"

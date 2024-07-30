@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { RepoTable, SearchForm } from './components'
+import { RepoTable, SearchForm, Select, TitleInstructions } from './components'
 import { useGetRepos } from './utils/hooks/useGetRepos'
 
 export default function Homepage() {
@@ -20,72 +20,69 @@ export default function Homepage() {
     <main className="flex min-h-screen flex-col items-center justify-between px-6 py-12 gap-6">
       <div className="flex flex-col gap-6 w-full max-w-5xl">
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-1">
-            <h1 className="text-3xl font-bold">GitHub Repository Search</h1>
-            <p className="text-1xl font-normal">
-              Enter a username or organization below:
-            </p>
-            <SearchForm handleSearch={handleSearch} defaultValue="guntherkoo" />
+          <div className="flex flex-col gap-6">
+            <TitleInstructions
+              title="GitHub Repository Search"
+              instructions="Enter a username or organization below:"
+            />
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-5">
-              <label>
-                Sort:{' '}
-                <select
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                  className="text-neutral-800 font-light p-1"
-                >
-                  <option value="created">Created</option>
-                  <option value="updated">Updated</option>
-                  <option value="pushed">Pushed</option>
-                  <option value="full_name">Name</option>
-                </select>
-              </label>
-              <label>
-                Filter:{' '}
-                <select
-                  value={filter}
-                  onChange={(e) => setFilter(e.target.value)}
-                  className="text-neutral-800 font-light p-1"
-                >
-                  <option value="all">All</option>
-                  <option value="public">Public</option>
-                  <option value="private">Private</option>
-                </select>
-              </label>
+              <SearchForm
+                handleSearch={handleSearch}
+                defaultValue="guntherkoo"
+              />
+              <Select
+                value={sort}
+                setValue={setSort}
+                label="Sort"
+                options={['Created', 'Updated', 'Pushed', 'Name']}
+              />
+              <Select
+                value={filter}
+                setValue={setFilter}
+                label="Filter"
+                options={['All', 'Public', 'Private']}
+              />
             </div>
+
             {data && (
-              <div className="flex gap-6 items-center">
-                {page !== 1 && (
-                  <button
-                    onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-                    className="hover:text-neutral-400 transition duration-400"
-                  >
-                    Previous
-                  </button>
-                )}
-                {data.length > 0 && (
-                  <button
-                    onClick={() => setPage((prev) => prev + 1)}
-                    className="hover:text-neutral-400 transition duration-400"
-                  >
-                    Next
-                  </button>
-                )}
+              <div className="flex gap-6 items-center w-36 justify-end">
+                <button
+                  onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                  className={`hover:text-neutral-400 transition duration-400 ${
+                    page === 1 ? 'text-neutral-500 pointer-events-none' : ''
+                  }`}
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={() => setPage((prev) => prev + 1)}
+                  className={`hover:text-neutral-400 transition duration-400 ${
+                    !!!data && data?.length === 0
+                      ? 'text-neutral-500 pointer-events-none'
+                      : ''
+                  }`}
+                >
+                  Next
+                </button>
               </div>
             )}
           </div>
 
-          {isLoading && <p>Loading...</p>}
+          {isLoading && (
+            <div className="flex rounded-lg bg-neutral-900 p-4">
+              <p className="text-lg font-light">Loading...</p>
+            </div>
+          )}
           {(error as boolean) && <p>Error loading repositories</p>}
           {data && data.length > 0 && (
-            <div className="flex flex-col rounded-lg bg-neutral-900 p-6">
+            <div className="flex flex-col rounded-lg bg-neutral-900 p-4">
               <RepoTable respositories={data} />
             </div>
           )}
           {data && data.length === 0 && (
-            <div className="flex rounded-lg bg-neutral-900 p-6">
+            <div className="flex rounded-lg bg-neutral-900 p-4">
               <p className="text-lg font-light">No more results...</p>
             </div>
           )}

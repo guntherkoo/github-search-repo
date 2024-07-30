@@ -9,19 +9,19 @@ const RepoTable = ({ respositories }: RepoTableProps) => {
     <table className="border-collapse w-full">
       <thead>
         <tr>
-          <th className="p-2 border border-neutral-700 w-40">Name</th>
-          <th className="p-2 border border-neutral-700">Description</th>
-          <th className="p-2 border border-neutral-700 w-80">URL</th>
+          <th className="p-2 border border-neutral-600 w-40">Name</th>
+          <th className="p-2 border border-neutral-600">Description</th>
+          <th className="p-2 border border-neutral-600 w-80">URL</th>
         </tr>
       </thead>
       <tbody>
         {respositories.map((repo) => (
           <tr key={repo.id}>
-            <td className="p-2 border border-neutral-700">{repo.name}</td>
-            <td className="p-2 border border-neutral-700">
+            <td className="p-2 border border-neutral-600">{repo.name}</td>
+            <td className="p-2 border border-neutral-600">
               {repo.description}
             </td>
-            <td className="p-2 border border-neutral-700">
+            <td className="p-2 border border-neutral-600">
               <a
                 href={repo.html_url}
                 target="_blank"
