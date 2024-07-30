@@ -1,8 +1,5 @@
 import type { Metadata } from 'next'
-import { Roboto_Condensed } from 'next/font/google'
 import './globals.css'
-
-const roboto = Roboto_Condensed({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'GitHub Repository Search',
@@ -16,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={roboto.className}>{children}</body>
+      <body className="font-roboto">{children}</body>
     </html>
   )
 }
