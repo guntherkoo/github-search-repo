@@ -28,10 +28,7 @@ export default function Homepage() {
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-5">
-              <SearchForm
-                handleSearch={handleSearch}
-                defaultValue="guntherkoo"
-              />
+              <SearchForm handleSearch={handleSearch} defaultValue="" />
               <Select
                 value={sort}
                 setValue={setSort}
@@ -59,7 +56,7 @@ export default function Homepage() {
                 <button
                   onClick={() => setPage((prev) => prev + 1)}
                   className={`hover:text-neutral-400 transition duration-400 ${
-                    !!!data && data?.length === 0
+                    data?.length === 0
                       ? 'text-neutral-500 pointer-events-none'
                       : ''
                   }`}

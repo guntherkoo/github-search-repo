@@ -18,7 +18,7 @@ const SearchForm = ({ handleSearch, defaultValue }: SearchFormProps) => {
       <fieldset className="flex flex-row gap-2 items-center">
         <input
           type="text"
-          placeholder="Enter username or organization here"
+          placeholder="Username or organization"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
